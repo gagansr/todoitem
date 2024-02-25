@@ -16,8 +16,6 @@ import java.util.List;
 @Service
 public class TodoService {
     private static final Logger log = LoggerFactory.getLogger(TodoService.class);
-
-
     @Autowired
     private TodoRepository todoRepository;
 
@@ -32,9 +30,9 @@ public class TodoService {
         }
     }
 
-    public List<Todo> searchTodosWithOrWithOutFilter(String title, String description){
+    public List<Todo> searchTodosWithOrWithOutFilter(String title, String description,boolean complete){
         log.info("Title is {} & Description is {}",title,description);
-        return todoRepository.searchTodo(title,description);
+        return todoRepository.searchTodo(title,description,complete);
     }
     public Todo getTodoById(int id){
         return todoRepository.findById(id)

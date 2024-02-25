@@ -25,4 +25,5 @@ public class Todo {
     @Column(name = "title", nullable = false)
     private String title;
     private String description;
+    private boolean complete;
 }

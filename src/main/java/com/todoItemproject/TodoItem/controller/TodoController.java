@@ -1,6 +1,7 @@
 package com.todoItemproject.TodoItem.controller;
 
 //import jakarta.validation.Valid;
+import com.todoItemproject.TodoItem.entity.CustomResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -13,6 +14,7 @@ import com.todoItemproject.TodoItem.entity.Todo;
 import com.todoItemproject.TodoItem.service.TodoService;
 
 import javax.validation.Valid;
+import java.time.Instant;
 import java.util.List;
 
 @RestController
@@ -35,8 +37,9 @@ public class TodoController {
     public List<Todo> searchTodosWithOrWithoutFilter(@RequestParam(defaultValue = "0") int pageNumber,
                                                      @RequestParam(defaultValue = "5") int pageSize,
                                                      @RequestParam(required = false) String title,
-                                                     @RequestParam(required = false) String description){
-        List<Todo> searchedList = todoService.searchTodosWithOrWithOutFilter(title,description);
+                                                     @RequestParam(required = false) String description,
+                                                     @RequestParam(required = false) boolean complete){
+        List<Todo> searchedList = todoService.searchTodosWithOrWithOutFilter(title,description,complete);
         int start = pageNumber * pageSize;
         int end = Math.min(start + pageSize,searchedList.size());
 
@@ -54,9 +57,9 @@ public class TodoController {
     }
 
     @PostMapping("/add-multiple")
-    public String createMultipleTodo(@Valid @RequestBody List<Todo> todo){
+    public CustomResponse createMultipleTodo(@Valid @RequestBody List<Todo> todo){
         todo.forEach(td -> todoService.createTodo(td));
-        return "Successfully Added!";
+        return new CustomResponse(HttpStatus.CREATED, "Successfully Added!", Instant.now());
     }
 
     @PutMapping("/{id}")
@@ -64,8 +67,8 @@ public class TodoController {
         return new ResponseEntity<Todo>(todoService.updateTodo(id,todo), HttpStatus.OK);
     }
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteTodoById(@PathVariable int id){
+    public CustomResponse deleteTodoById(@PathVariable int id){
         todoService.deleteTodoById(id);
-        return new ResponseEntity<>("Todo Item has been Deleted Successfully!",HttpStatus.OK);
+        return new CustomResponse(HttpStatus.OK, "Todo Item has been Deleted Successfully!", Instant.now());
     }
 }

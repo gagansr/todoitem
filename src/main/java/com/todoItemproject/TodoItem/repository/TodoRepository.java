@@ -12,6 +12,7 @@ import java.util.List;
 public interface TodoRepository extends JpaRepository<Todo, Integer>{
 
     @Query("SELECT t FROM Todo t WHERE t.title LIKE %?1%"
-            + " OR t.description LIKE %?2%")
-    List<Todo> searchTodo(String title, String description);
+            + " OR t.description LIKE %?2%"
+            + " OR t.complete = %?3%")
+    List<Todo> searchTodo(String title, String description, boolean complete);
 }
