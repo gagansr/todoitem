@@ -99,6 +99,9 @@ minikube start
     
 ### 4. Get URL after running below command
 
+
 ```bash
 minikube service todoitem 
 ```
+
+This will return URL Like http://127.0.0.1:55858 where our spring boot app is UP and Running
