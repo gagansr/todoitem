@@ -2,6 +2,8 @@ package com.todoItemproject.TodoItem.controller;
 
 //import jakarta.validation.Valid;
 import com.todoItemproject.TodoItem.entity.CustomResponse;
+import com.todoItemproject.TodoItem.exceptionHandling.ErrorResponse;
+import com.todoItemproject.TodoItem.exceptionHandling.TodoItemCustomException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -52,13 +54,23 @@ public class TodoController {
     }
 
     @PostMapping
-    public ResponseEntity<Todo> createTodo(@Valid @RequestBody Todo todo){
-        return new ResponseEntity<Todo>(todoService.createTodo(todo), HttpStatus.CREATED);
+    public ResponseEntity<Todo> createTodo(@Valid @RequestBody Todo todo) {
+        ResponseEntity<Todo> responseResult;
+        try {
+            responseResult = new ResponseEntity<Todo>(todoService.createTodo(todo), HttpStatus.CREATED);
+        } catch (Exception ex) {
+            throw new TodoItemCustomException(ex.getMessage());
+        }
+        return responseResult;
     }
 
     @PostMapping("/add-multiple")
     public CustomResponse createMultipleTodo(@Valid @RequestBody List<Todo> todo){
-        todo.forEach(td -> todoService.createTodo(td));
+        try{
+            todo.forEach(td -> todoService.createTodo(td));
+        }catch (Exception ex){
+            throw new TodoItemCustomException(ex.getMessage());
+        }
         return new CustomResponse(HttpStatus.CREATED, "Successfully Added!", Instant.now());
     }
 
