@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todoitem
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: todoitem
+  template:
+    metadata:
+      labels:
+        app: todoitem
+    spec:
+      containers:
+        - name: todoitem
+          image: todoitem:1.1
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
