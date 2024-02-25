@@ -1,17 +1,17 @@
 # Spring Boot Microservice Deployment on Minikube
 
-This guide will walk you through the process of building a Docker image for your microservice and deploying it on Minikube.
+This guide will walk through the process of building a Docker image for your microservice and deploying it on Minikube.
 
 ## Prerequisites
 
-- Docker installed on your local machine
-- Minikube installed on your local machine
-- kubectl CLI installed and configured to work with your Minikube cluster
+- Docker installed on local machine
+- Minikube installed on local machine
+- kubectl CLI installed and configured to work with Minikube cluster
 
 ## Steps
 
 ### 1. Start Minikube
-Ensure that Minikube is running on your local machine by executing the following command:
+Ensure that Minikube is running on local machine by executing the following command:
     
 ```bash
 minikube start
@@ -36,10 +36,10 @@ minikube start
 3. Build the Docker image by running the following command :
 
     ```bash
-    docker build -t your-image-name .
+    docker build -t image-name .
     ```
 
-   Replace `your-image-name` with the name you want to give to your Docker image.
+   Replace `image-name` with the name want to give to Docker image.
 
 ### 3. Create Deployment
 #### To deploy our docker image we have two options here
