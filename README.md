@@ -28,12 +28,12 @@ minikube start
     COPY target/TodoItem-0.0.1-SNAPSHOT.jar /app/TodoItem.jar
     ENTRYPOINT [ "java", "-jar", "TodoItem.jar" ]
     ```
-2. Run below command to switch or set docker env to minikube
+2. Run below command to switch or set docker env to minikube : 
     ```bash
     eval $(minikube docker-env)
     ```
 
-3. Build the Docker image by running the following command in your microservice project directory:
+3. Build the Docker image by running the following command :
 
     ```bash
     docker build -t your-image-name .
@@ -44,7 +44,7 @@ minikube start
 ### 3. Create Deployment
 #### To deploy our docker image we have two options here
     
-#### Using Command
+#### Using Command : 
 
     
     //create the deployment
@@ -55,7 +55,7 @@ minikube start
     
 #### OR
     
-#### Using a YAML file
+#### Using YAML file : 
 
      
     //deployment.yml
